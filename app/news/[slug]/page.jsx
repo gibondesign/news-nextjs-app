@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 export default function ArticlePage({ params }) {
 	const newsSlug = params.slug;
 	const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsSlug);
+	console.log(newsItem);
 
 	if (!newsItem){
 	  notFound()
@@ -23,7 +24,7 @@ const formattedDate = newDate.toLocaleDateString('en-GB',{
 			<header>
 				<img src={`/images/news/${newsItem.image}`} alt="" />
 				<h1>{newsItem.title}</h1>
-				<time datetime={newsItem.date}>{formattedDate}</time>
+				<time dateTime={newsItem.date}>{formattedDate}</time>
 			</header>
       <p>{newsItem.content}</p>
 		</article>

@@ -1,4 +1,4 @@
-export default function NotFound() {
+export default function NewsNotFound() {
 	return (
 		<div id="error">
 			<h1>Page not found</h1>
