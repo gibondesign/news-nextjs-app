@@ -1,3 +1,5 @@
+
+import BackButton from "@/components/BackButton";
 import NewsList from "@/components/NewsList";
 import {
 	getAvailableNewsMonths,
@@ -14,31 +16,43 @@ export default function archivePage({ params }) {
 	const selectedYear = filter?.[0];
 	const selectedMonth = filter?.[1];
 
+
+
 	let news;
+	let newsNavigation = 'Years:'
 
 	if (selectedYear && !selectedMonth) {
 		news = getNewsForYear(selectedYear);
 		links = getAvailableNewsMonths(selectedYear);
+		newsNavigation = "Months:"
 	}
 
 	if (selectedMonth) {
 		news = getNewsForYearAndMonth(selectedYear, selectedMonth);
 		links = []
+		newsNavigation = <Link className="backBtn" href='/archive'> ⬅️Get Back</Link>
 	}
 
 	let newsContent = <p>No news found yet...</p>;
+
+	
 
 	if (news && news.length > 0) {
 		newsContent = <NewsList news={news} />;
 	}
 
-	console.log(selectedMonth);
+	if(selectedYear && !getAvailableNewsYears().includes(+selectedYear) || selectedMonth && !getAvailableNewsMonths(selectedYear).includes(+selectedMonth) ) {
+		throw new Error ('invalid filter')
+	}
+
+
+
 
 	return (
 		<>
 			<header id="archive-header">
 				<h2>archive paraller</h2>
-				<h3>Years:</h3>
+				<h3>{newsNavigation}</h3>
 				<nav>
 					<ul>
 						{links.map((link) =>{
